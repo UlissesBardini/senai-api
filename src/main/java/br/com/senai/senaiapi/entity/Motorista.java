@@ -12,15 +12,18 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity(name = "Motorista")
 @Table(name = "motoristas")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Motorista {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+	@EqualsAndHashCode.Include
 	private Integer id;
 	@Column(name = "nome_completo")
 	@NotEmpty(message = "O nome do motorista é obrigatório!")

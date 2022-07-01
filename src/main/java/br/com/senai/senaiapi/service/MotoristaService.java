@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.google.common.base.Preconditions;
 
+import br.com.senai.senaiapi.controller.RegistroNaoEncontradoException;
 import br.com.senai.senaiapi.entity.Motorista;
 import br.com.senai.senaiapi.repository.MotoristasRepository;
 
@@ -39,7 +40,11 @@ public class MotoristaService {
 	}
 	
 	public Motorista buscarPor(@NotNull(message = "O id para busca não pode ser nulo!") Integer id) {
-		return this.repository.buscarPor(id);
+		Motorista motoristaEncontrado = this.repository.buscarPor(id);
+		if (motoristaEncontrado == null) {
+			throw new RegistroNaoEncontradoException("Não Foi encontrado o motorista");
+		}
+		return motoristaEncontrado;
 	}
 	
 	public List<Motorista> listarPor(@NotEmpty(message = "O nome é obrigatório") String nome) {
